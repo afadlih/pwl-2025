@@ -37,7 +37,7 @@ Route::get('/about', function () {
 });
 
 Route::get('/user/{name}', function ($name) {
-    return 'Ahmad Fadlih Wahyu Sardana ' . $name;
+    return 'Nama saya ' . $name;
 });
 
 Route::get('/posts/{post}/comments/{comment}', function ($postId, $commentId) {
@@ -48,3 +48,9 @@ Route::get('/posts/{post}/comments/{comment}', function ($postId, $commentId) {
 route::get ('articles/{id}', function ($id) {
     return 'Halaman artikel dengan ID ' . $id;
 });
+
+
+Route::get('/user/{name?}', function ($name='John') { 
+    return 'Nama saya '.$name; 
+    }); 
+    
