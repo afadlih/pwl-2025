@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 
 /*
@@ -33,8 +35,8 @@ Route::get('/world', function () {
 });
 
 
-Route::get('/', [PageController::class, 'index']);
-Route::get('/about', [PageController::class, 'about']);
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/about', [AboutController::class, 'about']);
 Route::get('/articles/{id}', [PageController::class, 'articles']);
 
 
