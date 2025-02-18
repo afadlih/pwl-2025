@@ -19,12 +19,12 @@ Route::get('/', function () {
 
 
 Route::get('/hello', function () {
-return 'Hello World';
+    return 'Hello World';
 });
 
 
 Route::get('/world', function () {
-return 'World';
+    return 'World';
 });
 
 Route::get('/', function () {
@@ -33,5 +33,18 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     return ('Ahamad Fadlih Wahyu Sardana 
-    2341720069'); 
+    2341720069');
+});
+
+Route::get('/user/{name}', function ($name) {
+    return 'Ahmad Fadlih Wahyu Sardana ' . $name;
+});
+
+Route::get('/posts/{post}/comments/{comment}', function ($postId, $commentId) {
+    return 'Pos ke-' . $postId . " Komentar ke-: " . $commentId;
+});
+
+
+route::get ('articles/{id}', function ($id) {
+    return 'Halaman artikel dengan ID ' . $id;
 });
