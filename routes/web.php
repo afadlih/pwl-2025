@@ -81,3 +81,5 @@ Route::get('/user', [UserController::class, 'index']);
 Route::get('/post', [PostController::class, 'index']);
 Route::get('/event', [EventController::class, 'index']);
 });
+
+Route::redirect('/here', '/there');
