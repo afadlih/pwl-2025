@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserProfileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -52,5 +54,11 @@ route::get ('articles/{id}', function ($id) {
 
 Route::get('/user/{name?}', function ($name='John') { 
     return 'Nama saya '.$name; 
-    }); 
+}); 
     
+
+
+Route::get(
+    '/user/profile',
+    [UserProfileController::class, 'show']
+)->name('profile');
