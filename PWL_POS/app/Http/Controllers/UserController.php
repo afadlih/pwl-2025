@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserModel;
+use App\Models\LevelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Routing\Controller;
@@ -11,8 +12,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::all();
-        return view('user', ['data' => $user]);
+        $user = UserModel::with('level')->get();
+        dd($user);
     }
 
     public function tambah()
@@ -36,6 +37,7 @@ class UserController extends Controller
         $user = UserModel::find($id);
         return view('user_ubah', ['data' => $user]);
     }
+
     public function ubah_simpan(Request $request, $id)
     {
         $user = UserModel::find($id);
@@ -46,6 +48,7 @@ class UserController extends Controller
         $user->save();
         return redirect('/user');
     }
+
     public function hapus($id)
     {
         $user = UserModel::find($id);
