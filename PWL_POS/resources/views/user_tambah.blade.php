@@ -1,7 +1,7 @@
 {{-- Form Tambah Data User --}}
 <h1>Form Tambah Data User</h1>
-<form method="post" action="/user/tambah_simpan">
-    {{ csrf_field() }}
+<form action="{{ url('/user/tambah_simpan') }}" method="POST">
+    @csrf
     <label>Username</label>
     <input type="text" name="username" placeholder="Masukkan Username">
     <br>

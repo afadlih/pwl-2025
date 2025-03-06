@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Routing\Controller;
 
 class UserController extends Controller
 {
@@ -13,10 +14,12 @@ class UserController extends Controller
         $user = UserModel::all();
         return view('user', ['data' => $user]);
     }
+
     public function tambah()
     {
         return view('user_tambah');
     }
+
     public function tambah_simpan(Request $request)
     {
         UserModel::create([
