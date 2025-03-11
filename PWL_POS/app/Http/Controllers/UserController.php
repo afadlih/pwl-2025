@@ -172,4 +172,24 @@ class UserController extends Controller
         // Redirect kembali ke halaman user dengan pesan sukses
         return redirect('/user')->with('success', 'Data user berhasil diubah');
     }
+    // Menghapus data user
+    public function destroy(string $id)
+    {
+        // Mengecek apakah data user dengan ID yang dimaksud ada atau tidak
+        $check = UserModel::find($id);
+        if (!$check) {
+            return redirect('/user')->with('error', 'Data user tidak ditemukan');
+        }
+
+        try {
+            // Menghapus data user berdasarkan ID
+            UserModel::destroy($id);
+
+            return redirect('/user')->with('success', 'Data user berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Jika terjadi error ketika menghapus data,
+            // redirect kembali ke halaman dengan pesan error
+            return redirect('/user')->with('error', 'Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        }
+    }
 }
