@@ -59,7 +59,13 @@
                 ajax: {
                     "url": "{{ url('user/list') }}",
                     "dataType": "json",
-                    "type": "POST"
+                    "type": "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    "data": function(d) {
+                        d.level_id = $('#level_id').val();
+                    }
                 },
                 columns: [{
                     // nomor urut dari laravel datatable addIndexColumn() 
