@@ -60,9 +60,6 @@
                     "url": "{{ url('user/list') }}",
                     "dataType": "json",
                     "type": "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
                     "data": function(d) {
                         d.level_id = $('#level_id').val();
                     }
@@ -97,6 +94,9 @@
                     orderable: false,
                     searchable: false
                 }]
+            });
+            $('#level_id').change(function() {
+                dataUser.ajax.reload();
             });
         });
     </script>
