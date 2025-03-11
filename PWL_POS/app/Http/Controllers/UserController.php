@@ -7,63 +7,28 @@ use App\Models\LevelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Routing\Controller;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::with('level')->get();
-        return view('user', ['data' => $user]);
-    }
+        // Menampilkan halaman awal user
+        $breadcrumb = (object) [
+            'title' => 'Daftar User',
+            'list'  => ['Home', 'User']
+        ];
 
-    public function tambah()
-    {
-        return view('user_tambah');
-    }
+        $page = (object) [
+            'title' => 'Daftar user yang terdaftar dalam sistem'
+        ];
 
-    public function tambah_simpan(Request $request)
-    {
-        UserModel::create([
-            'username' => $request->username,
-            'nama' => $request->nama,
-            'password' => Hash::make($request->password),
-            'level_id' => $request->level_id
+        $activeMenu = 'user'; // set menu yang sedang aktif
+
+        return view('user.index', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu
         ]);
-        return redirect('/user');
-    }
-
-    public function ubah($id)
-    {
-        $user = UserModel::find($id);
-        if (!$user) {
-            return redirect('/user')->with('error', 'User not found');
-        }
-        return view('user_ubah', ['data' => $user]);
-    }
-
-    public function ubah_simpan(Request $request, $id)
-    {
-        $user = UserModel::find($id);
-        if (!$user) {
-            return redirect('/user')->with('error', 'User not found');
-        }
-        $user->username = $request->username;
-        $user->nama = $request->nama;
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
-        $user->level_id = $request->level_id;
-        $user->save();
-        return redirect('/user');
-    }
-
-    public function hapus($id)
-    {
-        $user = UserModel::find($id);
-        if (!$user) {
-            return redirect('/user')->with('error', 'User not found');
-        }
-        $user->delete();
-        return redirect('/user');
     }
 }
