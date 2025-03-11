@@ -24,7 +24,9 @@ class UserController extends Controller
 
         $activeMenu = 'user'; // set menu yang sedang aktif
 
-        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        $level = LevelModel::all(); // Ambil data level untuk filter level
+
+        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
     // Ambil data user dalam bentuk JSON untuk DataTables 
@@ -92,6 +94,7 @@ class UserController extends Controller
         // Redirect ke halaman user dengan pesan sukses
         return redirect('/user')->with('success', 'Data user berhasil disimpan');
     }
+
     // Menampilkan detail user
     public function show(string $id)
     {
@@ -120,6 +123,7 @@ class UserController extends Controller
         // Mengembalikan tampilan dengan data yang sudah dikonfigurasi
         return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
+
     // Menampilkan halaman form edit user
     public function edit(string $id)
     {
@@ -172,6 +176,7 @@ class UserController extends Controller
         // Redirect kembali ke halaman user dengan pesan sukses
         return redirect('/user')->with('success', 'Data user berhasil diubah');
     }
+
     // Menghapus data user
     public function destroy(string $id)
     {
