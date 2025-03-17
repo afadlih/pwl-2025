@@ -18,7 +18,7 @@ class UserController extends Controller
             'list'  => ['Home', 'User']
         ];
 
-        $page = (object) [  
+        $page = (object) [
             'title' => 'Daftar user yang terdaftar dalam sistem'
         ];
 
@@ -28,30 +28,30 @@ class UserController extends Controller
 
         return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
-    
+
     // Ambil data user dalam bentuk JSON untuk DataTables 
-    public function list(Request $request) 
-    { 
-        $users = UserModel::select('user_id', 'username', 'nama', 'level_id')->with('level'); 
+    public function list(Request $request)
+    {
+        $users = UserModel::select('user_id', 'username', 'nama', 'level_id')->with('level');
 
         // Filter data user berdasarkan level_id
-            if ($request->level_id) {
-                $users->where('level_id', $request->level_id);
-            }
+        if ($request->level_id) {
+            $users->where('level_id', $request->level_id);
+        }
 
-        return DataTables::of($users) 
+        return DataTables::of($users)
             // Menambahkan kolom index / nomor urut (default nama kolom: DT_RowIndex) 
-            ->addIndexColumn()  
+            ->addIndexColumn()
             ->addColumn('aksi', function ($user) {  // Menambahkan kolom aksi 
-                $btn  = '<a href="'.url('/user/' . $user->user_id).'" class="btn btn-info btn-sm">Detail</a> '; 
-                $btn .= '<a href="'.url('/user/' . $user->user_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> '; 
-                $btn .= '<form class="d-inline-block" method="POST" action="'.url('/user/'.$user->user_id).'">' 
-                        . csrf_field() . method_field('DELETE') .  
-                        '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';      
-                return $btn; 
-            }) 
+                $btn  = '<a href="' . url('/user/' . $user->user_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('/user/' . $user->user_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/user/' . $user->user_id) . '">'
+                    . csrf_field() . method_field('DELETE') .
+                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                return $btn;
+            })
             ->rawColumns(['aksi']) // Memberitahu bahwa kolom aksi berisi HTML 
-            ->make(true); 
+            ->make(true);
     }
 
     // Menampilkan halaman form tambah user
@@ -70,13 +70,13 @@ class UserController extends Controller
         $activeMenu = 'user'; // Set menu yang sedang aktif
 
         return view('user.create', [
-            'breadcrumb' => $breadcrumb, 
-            'page' => $page, 
-            'level' => $level, 
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'level' => $level,
             'activeMenu' => $activeMenu
         ]);
     }
-    
+
     // Menyimpan data user baru
     public function store(Request $request)
     {
@@ -162,8 +162,8 @@ class UserController extends Controller
         // Validasi input dari request
         $request->validate([
             'username' => 'required|string|min:3|unique:m_user,username,' . $id . ',user_id',
-            'nama'     => 'required|string|max:100', 
-            'password' => 'nullable|min:5', 
+            'nama'     => 'required|string|max:100',
+            'password' => 'nullable|min:5',
             'level_id' => 'required|integer'
         ]);
 
@@ -203,4 +203,11 @@ class UserController extends Controller
         }
     }
 
+    // Menampilkan halaman form tambah user (ajax)
+    public function create_ajax()
+    {
+        $level = LevelModel::select('level_id', 'level_nama')->get(); 
+
+        return view('user.create_ajax')->with('level', $level);
+    }
 }
