@@ -223,7 +223,7 @@ class UserController extends Controller
 
             $check = UserModel::find($id);
             if ($check) {
-                if ($request->filled('password')) {
+                if (!$request->filled('password')) {
                     $request->request->remove('password');
                 }
 

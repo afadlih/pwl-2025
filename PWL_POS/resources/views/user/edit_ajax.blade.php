@@ -34,8 +34,8 @@
                         <select name="level_id" id="level_id" class="form-control" required>
                             <option value="">- Pilih Level -</option>
                             @foreach ($level as $l)
-                                <option {{ $l->level_id == $user->level_id ? 'selected' : '' }}
-                                    value="{{ $l->level_id }}">{{ $l->level_nama }}</option>
+                                <option {{ $l->level_id == $user->level_id ? 'selected' : '' }} value="{{ $l->level_id }}">
+                                    {{ $l->level_nama }}</option>
                             @endforeach
                         </select>
                         <small id="error-level_id" class="error-text form-text text-danger"></small>
@@ -54,8 +54,7 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input value="{{ $user->password }}" type="password" name="password" id="password"
-                            class="form-control">
+                        <input type="password" name="password" id="password" class="form-control">
                         <small class="form-text text-muted">Abaikan jika tidak ingin ubah password</small>
                         <small id="error-password" class="error-text form-text text-danger"></small>
                     </div>
