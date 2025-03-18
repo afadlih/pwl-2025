@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('t_stok', function (Blueprint $table) {
             $table->id('stok_id');
             $table->unsignedBigInteger('barang_id')->index(); // indexing untuk ForeignKey
-            $table->integer('jumlah');
+            $table->integer('stok_jumlah'); 
             $table->timestamps();
             
             // Mendefinisikan Foreign Key pada kolom barang_id mengacu pada kolom barang_id di tabel m_barang
