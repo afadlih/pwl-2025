@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> {{-- ADD THIS LINE --}}
     <title>{{ config('app.name', 'PWL Laravel Starter Code') }}</title> {{-- MODIF --}}
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -19,9 +20,10 @@
         href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!--SweetAlert2-->
-    <link rel="stylesheet" href="{{ asset('plugins/ssweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}"> {{-- MODIF --}}
+    <link rel="icon" href="{{ asset('adminlte/dist/img/favicon.ico') }}" type="image/x-icon"> {{-- ADD THIS LINE --}}
 
     @stack('css')
 </head>
@@ -112,10 +114,10 @@
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colvis.min.js') }}"></script>
 
     <!--jquery-validation-->
-    <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('plugins/jquery-validation/addtional-methods.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
     <!--SweetAlert2-->
-    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <script>

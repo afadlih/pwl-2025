@@ -58,6 +58,7 @@
 
 
 @push('js')
+    <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         function modalAction(url = '') {
             $('#myModal').load(url, function() {
@@ -74,17 +75,11 @@
                     "url": "{{ route('user.list') }}",
                     "dataType": "json",
                     "type": "POST",
+                    "async": true, // Ensure the request is asynchronous
                     data: function(d) {
-                        // d._token = "{{ csrf_token() }}";
+                        d._token = "{{ csrf_token() }}";
                         d.level_id = $('#level_id').val();
                     }
-                    // },
-                    // error: function(xhr, error, thrown) {
-                    //     console.error('DataTables Ajax Error:', error);
-                    //     alert(
-                    //         'An error occurred while loading data. Please check the console for more information.');
-                    // }
-
                 },
                 columns: [{
                         data: 'DT_RowIndex',
@@ -114,6 +109,11 @@
             });
 
             $('#level_id').on('change', function() {
+                dataUser.ajax.reload();
+            });
+
+            $('#myModal').on('hidden.bs.modal', function () {
+                $('#level_id').val(''); // Reset the filter
                 dataUser.ajax.reload();
             });
         });

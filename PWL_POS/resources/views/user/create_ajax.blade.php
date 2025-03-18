@@ -4,8 +4,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah Data User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -30,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input value="" type="password" name="password" id="password" class="formcontrol" required>
+                    <input value="" type="password" name="password" id="password" class="form-control" required>
                     <small id="error-password" class="error-text form-text text-danger"></small>
                 </div>
             </div>
@@ -41,6 +42,11 @@
         </div>
     </div>
 </form>
+<!--jquery-validation-->
+<script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+<!--SweetAlert2-->
+<script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script>
     $(document).ready(function() {
         $("#form-tambah").validate({
@@ -70,6 +76,7 @@
                     url: form.action,
                     type: form.method,
                     data: $(form).serialize(),
+                    async: true, // Ensure the request is asynchronous
                     success: function(response) {
                         if (response.status) {
                             $('#myModal').modal('hide');
@@ -78,6 +85,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
+                            $('#level_id').val(''); // Reset the filter
                             dataUser.ajax.reload();
                         } else {
                             $('.error-text').text('');
