@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\KategoriModel;
+use App\Models\LevelModel;
 use Yajra\DataTables\Facades\DataTables;
 
 class KategoriController extends Controller
@@ -16,18 +17,15 @@ class KategoriController extends Controller
             'list'  => ['Home', 'Kategori']
         ];
 
-
-
-
-
         $page = (object) [
             'title' => 'Daftar kategori yang terdaftar dalam sistem'
         ];
 
         $activeMenu = 'kategori';
 
+        $level = LevelModel::all(); // Fetch levels from LevelModel
 
-        return view('kategori.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('kategori.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'level' => $level]);
     }
 
     public function list(Request $request)
@@ -37,10 +35,8 @@ class KategoriController extends Controller
         return DataTables::of($kategoris)
             ->addIndexColumn()
             ->addColumn('aksi', function ($kategori) {
-                $btn  = '<a href="' . url('/kategori/' . $kategori->kategori_id) . '
-                " class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/kategori/' . $kategori->kategori_id . '/edit') . '
-                " class="btn btn-warning btn-sm">Edit</a> ';
+                $btn  = '<a href="' . url('/kategori/' . $kategori->kategori_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('/kategori/' . $kategori->kategori_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/kategori/' . $kategori->kategori_id) . '">'
                     . csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';

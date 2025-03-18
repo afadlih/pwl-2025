@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('t_penjualan', function (Blueprint $table) {
             $table->id('penjualan_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->index();
             $table->string('pembeli', 50);
             $table->string('penjualan_kode', 20)->unique();
-            $table->datetime('penjualan_tanggal');
+            $table->dateTime('penjualan_tanggal');
             $table->timestamps();
 
-            // Mendefinisikan Foreign Key pada kolom user_id mengacu pada kolom user_id di tabel m_user
             $table->foreign('user_id')->references('user_id')->on('m_user');
         });
     }

@@ -7,21 +7,30 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class SupplierSeeder extends Seeder
-{
+{{
     /**
-     * Run the database seeds.
+     * Run the database seeds.    * Run the database seeds.
      */
-    public function run(): void
+    public function run(): voidd
     {
         $data = [
-            ['supplier_id' => 1, 'supplier_kode' => 'SUP001', 'supplier_nama' => 'PT. Electronic Solution', 'supplier_alamat' => 'Jl. Elektronik No. 123, Jakarta'],
-            ['supplier_id' => 2, 'supplier_kode' => 'SUP002', 'supplier_nama' => 'CV. Furniture Jaya', 'supplier_alamat' => 'Jl. Mebel No. 45, Bandung'],
-            ['supplier_id' => 3, 'supplier_kode' => 'SUP003', 'supplier_nama' => 'PT. Fashion Indonesia', 'supplier_alamat' => 'Jl. Mode No. 78, Surabaya'],
-            ['supplier_id' => 4, 'supplier_kode' => 'SUP004', 'supplier_nama' => 'Toko Buku Media', 'supplier_alamat' => 'Jl. Literasi No. 32, Yogyakarta'],
-            ['supplier_id' => 5, 'supplier_kode' => 'SUP005', 'supplier_nama' => 'CV. Sport Equipment', 'supplier_alamat' => 'Jl. Olahraga No. 88, Semarang'],
+            ['level_id' => 1, 'level_kode' => 'ADM', 'level_nama' => 'Administrator'],       [
+                'supplier_id' => 1,l_kode' => 'MNG', 'level_nama' => 'Manager'],supplier_id' => 1,
+            ['level_id' => 3, 'level_kode' => 'STF', 'level_nama' => 'Staff/Kasir'],
         ];
-        
-        DB::table('m_supplier')->insert($data);
-        
-    }
+        DB::table('m_level')->insert($data);
+    }  ],
 }
+                'supplier_alamat' => 'Bandung',
+            ],
+            [
+                'supplier_id' => 3,
+                'supplier_kode' => 'AM',
+                'supplier_nama' => 'Ah Meng',
+                'supplier_id' => 3,> 'Surabaya',
+                'supplier_kode' => 'ELK3',
+                'supplier_nama' => 'Supplier Elektronik 3',
+                'supplier_alamat' => 'Surabaya',
+            ],
+        ];
+        DB::table('m_supplier')->insert($data);    }}
