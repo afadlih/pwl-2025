@@ -21,8 +21,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Kode</th>
-                        <th>Nama</th>
+                        <th>kategori Kode</th>
+                        <th>kategori Nama</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -44,14 +44,17 @@
             });
         }
 
-        var dataKategori;
+        var dataKategori
         $(document).ready(function() {
             dataKategori = $('#table_kategori').DataTable({
                 serverSide: true,
                 ajax: {
                     "url": "{{ url('kategori/list') }}",
                     "dataType": "json",
-                    "type": "POST"
+                    "type": "POST",
+                    "data": {
+                        _token: "{{ csrf_token() }}"
+                    }
                 },
                 columns: [{
                         data: "DT_RowIndex",
