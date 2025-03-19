@@ -56,7 +56,6 @@
 @push('css')
 @endpush
 
-
 @push('js')
     <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
@@ -68,43 +67,23 @@
         var dataUser;
         $(document).ready(function() {
             dataUser = $('#table_user').DataTable({
-                //serverSide : true, jika ingin menggunakan server side processing
-                //processing: true,
                 serverSide: true,
                 ajax: {
                     "url": "{{ route('user.list') }}",
                     "dataType": "json",
                     "type": "POST",
-                    "async": true, // Ensure the request is asynchronous
+                    "async": true,
                     data: function(d) {
                         d._token = "{{ csrf_token() }}";
                         d.level_id = $('#level_id').val();
                     }
                 },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'username',
-                        name: 'username'
-                    },
-                    {
-                        data: 'nama',
-                        name: 'nama'
-                    },
-                    {
-                        data: 'level.level_nama',
-                        name: 'level.level_nama'
-                    },
-                    {
-                        data: 'aksi',
-                        name: 'aksi',
-                        orderable: false,
-                        searchable: false
-                    }
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+                    { data: 'username', name: 'username' },
+                    { data: 'nama', name: 'nama' },
+                    { data: 'level.level_nama', name: 'level.level_nama' },
+                    { data: 'aksi', name: 'aksi', orderable: false, searchable: false }
                 ]
             });
 
@@ -113,7 +92,6 @@
             });
 
             $('#myModal').on('hidden.bs.modal', function () {
-                $('#level_id').val(''); // Reset the filter
                 dataUser.ajax.reload();
             });
         });
