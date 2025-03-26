@@ -5,40 +5,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login Pengguna</title>
+    <title>Registrasi Pengguna</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-    {{-- icheck bootstrap --}}
+    <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    {{-- SweetAlert2 --}}
+    <!-- SweetAlert2 -->
     <link rel="stylesheet"
         href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
-    {{-- Theme Style --}}
+    <!-- Theme Style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 </head>
 
-<body class="hold-transition login-page">
-    <div class="login-box">
-        {{-- /. login-logo --}}
+<body class="hold-transition register-page">
+    <div class="register-box">
         <div class="card card-outline card-primary">
-            <div class="card-header text-center"><a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a></div>
+            <div class="card-header text-center">
+                <a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a>
+            </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
-                <form action="{{ url('login') }}" method="POST" id="form-login">
+                <p class="login-box-msg">Register New User</p>
+
+                <form action="{{ url('postRegister') }}" method="post" id="form-register">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" name="username" id="username" class="form-control"
                             placeholder="Username">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                                <span class="fas fa-user"></span>
                             </div>
                         </div>
                         <small id="error-username" class="error-text text-danger"></small>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="nama" id="nama" class="form-control"
+                            placeholder="Nama Lengkap">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-id-card"></span>
+                            </div>
+                        </div>
+                        <small id="error-nama" class="error-text text-danger"></small>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select name="level_id" id="level_id" class="form-control">
+                            <option value="" disabled selected>- Pilih Level -</option>
+                            @if(isset($levels) && $levels->isNotEmpty())
+                                @foreach ($levels as $level)
+                                    <option value="{{ $level->level_id }}">{{ $level->level_nama }}</option>
+                                @endforeach
+                            @else
+                                <option value="" disabled>No levels available</option>
+                            @endif
+                        </select>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-layer-group"></span>
+                            </div>
+                        </div>
+                        <small id="error-level_id" class="error-text text-danger"></small>
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" name="password" id="password" class="form-control"
@@ -50,38 +80,40 @@
                         </div>
                         <small id="error-password" class="error-text text-danger"></small>
                     </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember"><label for="remember">Remember Me</label>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password_confirmation" id="password_confirmation"
+                            class="form-control" placeholder="Konfirmasi Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
                             </div>
                         </div>
-                        {{-- /.col --}}
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block">Daftar</button>
                         </div>
-                        {{-- /.col --}}
                     </div>
                 </form>
-                <p class="mt-3 text-center">Don't have account?<a href="{{ url('register') }}"> Register Now!</a></p>
-            </div>
-            {{-- /.card-body --}}
-        </div>
-        {{-- /.card --}}
-    </div>
-    {{-- /.login-box --}}
 
-    {{-- jQuery --}}
+                <p class="mt-3 mb-0 text-center">
+                    Already Have account? <a href="{{ url('login') }}">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
-    {{-- bootstrap-4 --}}
+    <!-- Bootstrap 4 -->
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    {{-- jquery-validation --}}
+    <!-- jquery-validation -->
     <script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
-    {{-- SweetAlert2 --}}
+    <!-- SweetAlert2 -->
     <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    {{-- AdminLTE App --}}
-    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('AdminLTE-3.2.0/dist/js/adminlte.min.js') }}"></script>
 
     <script>
         $.ajaxSetup({
@@ -91,17 +123,28 @@
         });
 
         $(document).ready(function() {
-            $("#form-login").validate({
+            $("#form-register").validate({
                 rules: {
                     username: {
                         required: true,
                         minlength: 4,
                         maxlength: 20
                     },
+                    nama: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 100
+                    },
+                    level_id: {
+                        required: true
+                    },
                     password: {
                         required: true,
-                        minlength: 5,
-                        maxlength: 20
+                        minlength: 6
+                    },
+                    password_confirmation: {
+                        required: true,
+                        equalTo: "#password"
                     }
                 },
                 submitHandler: function(form) {
@@ -122,7 +165,7 @@
                                 });
                             } else {
                                 $('.error-text').text('');
-                                $.each(response.msgField, function(prefix, val) {
+                                $.each(response.errors, function(prefix, val) {
                                     $('#error-' + prefix).text(val[0]);
                                 });
                                 Swal.fire({
@@ -131,6 +174,19 @@
                                     text: response.message
                                 });
                             }
+                        },
+                        error: function(xhr) {
+                            $('.error-text').text('');
+                            if (xhr.responseJSON && xhr.responseJSON.errors) {
+                                $.each(xhr.responseJSON.errors, function(prefix, val) {
+                                    $('#error-' + prefix).text(val[0]);
+                                });
+                            }
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan',
+                                text: 'Gagal melakukan registrasi'
+                            });
                         }
                     });
                     return false;

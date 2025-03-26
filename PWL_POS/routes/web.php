@@ -14,6 +14,8 @@ Route::pattern('id', '[0-9]+'); // artinya ketika ada parameter {id}, maka harus
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postlogin']);
+Route::get('register', [AuthController::class, 'register']);
+Route::post('postRegister', [AuthController::class, 'postRegister']);
 Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::middleware(['auth'])->group(function () { // artinya semua route di dalam group ini harus login dulu
     Route::get('/', [WelcomeController::class, 'index']);
@@ -79,42 +81,42 @@ Route::group(['prefix' => 'kategori'], function () {
     });
 });
 
-    Route::group(['prefix' => 'supplier'], function () {
-        Route::middleware(['authorize:ADM,MNG'])->group(function () { // artinya semua route di dalam group ini harus ADM atau MNG
-            Route::get('/', [SupplierController::class, 'index']);                  // menampilkan halaman awal supplier
-            Route::post('/list', [SupplierController::class, 'list'])->name('supplier.list'); // menampilkan data supplier dalam bentuk json untuk datatables
-            Route::get('/create', [SupplierController::class, 'create']);           // menampilkan halaman form tambah supplier
-            Route::post('/', [SupplierController::class, 'store']);                 // menyimpan data supplier baru
-            Route::get('/create_ajax', [SupplierController::class, 'create_ajax']); // menampilkan halaman form tambah supplier (ajax)
-            Route::post('/ajax', [SupplierController::class, 'store_ajax']);        // menyimpan data supplier baru (ajax)
-            Route::get('/{id}', [SupplierController::class, 'show']);               // menampilkan detail supplier
-            Route::get('/{id}/show_ajax', [SupplierController::class, 'show_ajax']); // menampilkan detail supplier (ajax)
-            Route::get('/{id}/edit', [SupplierController::class, 'edit']);          // menampilkan halaman form edit supplier
-            Route::put('/{id}', [SupplierController::class, 'update']);             // menyimpan perubahan data supplier
-            Route::get('/{id}/edit_ajax', [SupplierController::class, 'edit_ajax']); // menampilkan halaman form edit supplier (ajax)
-            Route::put('/{id}/update_ajax', [SupplierController::class, 'update_ajax']); // menyimpan perubahan data supplier (ajax)
-            Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']); // menampilkan konfirmasi hapus supplier (ajax)
-            Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']); // menghapus data supplier (ajax)
-            Route::delete('/{id}', [SupplierController::class, 'destroy']);         // menghapus data supplier
-        });
+Route::group(['prefix' => 'supplier'], function () {
+    Route::middleware(['authorize:ADM,MNG'])->group(function () { // artinya semua route di dalam group ini harus ADM atau MNG
+        Route::get('/', [SupplierController::class, 'index']);                  // menampilkan halaman awal supplier
+        Route::post('/list', [SupplierController::class, 'list'])->name('supplier.list'); // menampilkan data supplier dalam bentuk json untuk datatables
+        Route::get('/create', [SupplierController::class, 'create']);           // menampilkan halaman form tambah supplier
+        Route::post('/', [SupplierController::class, 'store']);                 // menyimpan data supplier baru
+        Route::get('/create_ajax', [SupplierController::class, 'create_ajax']); // menampilkan halaman form tambah supplier (ajax)
+        Route::post('/ajax', [SupplierController::class, 'store_ajax']);        // menyimpan data supplier baru (ajax)
+        Route::get('/{id}', [SupplierController::class, 'show']);               // menampilkan detail supplier
+        Route::get('/{id}/show_ajax', [SupplierController::class, 'show_ajax']); // menampilkan detail supplier (ajax)
+        Route::get('/{id}/edit', [SupplierController::class, 'edit']);          // menampilkan halaman form edit supplier
+        Route::put('/{id}', [SupplierController::class, 'update']);             // menyimpan perubahan data supplier
+        Route::get('/{id}/edit_ajax', [SupplierController::class, 'edit_ajax']); // menampilkan halaman form edit supplier (ajax)
+        Route::put('/{id}/update_ajax', [SupplierController::class, 'update_ajax']); // menyimpan perubahan data supplier (ajax)
+        Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']); // menampilkan konfirmasi hapus supplier (ajax)
+        Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']); // menghapus data supplier (ajax)
+        Route::delete('/{id}', [SupplierController::class, 'destroy']);         // menghapus data supplier
     });
+});
 
-    Route::group(['prefix' => 'barang'], function () {
-        Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
-            Route::get('/', [BarangController::class, 'index']);                  // menampilkan halaman awal barang
-            Route::post('/list', [BarangController::class, 'list'])->name('barang.list'); // menampilkan data barang dalam bentuk json untuk datatables
-            Route::get('/create', [BarangController::class, 'create']);           // menampilkan halaman form tambah barang
-            Route::post('/', [BarangController::class, 'store']);                 // menyimpan data barang baru
-            Route::get('/create_ajax', [BarangController::class, 'create_ajax']); // menampilkan halaman form tambah barang (ajax)
-            Route::post('/ajax', [BarangController::class, 'store_ajax']);        // menyimpan data barang baru (ajax)
-            Route::get('/{id}', [BarangController::class, 'show']);               // menampilkan detail barang
-            Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']); // menampilkan detail barang (ajax)
-            Route::get('/{id}/edit', [BarangController::class, 'edit']);          // menampilkan halaman form edit barang
-            Route::put('/{id}', [BarangController::class, 'update']);             // menyimpan perubahan data barang
-            Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']); // menampilkan halaman form edit barang (ajax)
-            Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']); // menyimpan perubahan data barang (ajax)
-            Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // menampilkan konfirmasi hapus barang (ajax)
-            Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // menghapus data barang (ajax)
-            Route::delete('/{id}', [BarangController::class, 'destroy']);         // menghapus data barang
-        });
+Route::group(['prefix' => 'barang'], function () {
+    Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
+        Route::get('/', [BarangController::class, 'index']);                  // menampilkan halaman awal barang
+        Route::post('/list', [BarangController::class, 'list'])->name('barang.list'); // menampilkan data barang dalam bentuk json untuk datatables
+        Route::get('/create', [BarangController::class, 'create']);           // menampilkan halaman form tambah barang
+        Route::post('/', [BarangController::class, 'store']);                 // menyimpan data barang baru
+        Route::get('/create_ajax', [BarangController::class, 'create_ajax']); // menampilkan halaman form tambah barang (ajax)
+        Route::post('/ajax', [BarangController::class, 'store_ajax']);        // menyimpan data barang baru (ajax)
+        Route::get('/{id}', [BarangController::class, 'show']);               // menampilkan detail barang
+        Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']); // menampilkan detail barang (ajax)
+        Route::get('/{id}/edit', [BarangController::class, 'edit']);          // menampilkan halaman form edit barang
+        Route::put('/{id}', [BarangController::class, 'update']);             // menyimpan perubahan data barang
+        Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']); // menampilkan halaman form edit barang (ajax)
+        Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']); // menyimpan perubahan data barang (ajax)
+        Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // menampilkan konfirmasi hapus barang (ajax)
+        Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // menghapus data barang (ajax)
+        Route::delete('/{id}', [BarangController::class, 'destroy']);         // menghapus data barang
     });
+});
